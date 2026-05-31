@@ -97,3 +97,29 @@ abstract class BaseStruct {
   Map<String, dynamic> toMap();
   Map<String, dynamic> toSerializableMap();
 }
+
+// Stato globale dell'app (Libreria, Download, ecc.)
+class FFAppState extends ChangeNotifier {
+  static final FFAppState _instance = FFAppState._internal();
+
+  factory FFAppState() {
+    return _instance;
+  }
+
+  FFAppState._internal();
+
+  bool _isDownloading = false;
+  bool get isDownloading => _isDownloading;
+  set isDownloading(bool val) {
+    _isDownloading = val;
+    notifyListeners();
+  }
+
+  List<dynamic> _libreriaDownload = [];
+  List<dynamic> get libreriaDownload => _libreriaDownload;
+  
+  void addToLibreriaDownload(dynamic val) {
+    _libreriaDownload.add(val);
+    notifyListeners();
+  }
+}
